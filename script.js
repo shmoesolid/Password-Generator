@@ -22,7 +22,7 @@ function writePassword()
   }
 
   // set our password to the text area
-  document.querySelector("#password").value = password;
+  passwordInput.value = password;
 }
 
 // generates our password
