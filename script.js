@@ -42,16 +42,18 @@ function generatePassword()
   if (arrayStrings.length == 0)
     return false;
 
-  // attempt to parse length input
-  // confirm length input's value is what it's suppose to be
-  // set it to default if not
+  // attempt to parse length input into an integer
   var length = parseInt(lengthInput.value);
-  if (typeof length != 'number'
-    || length < 8
-    || length > 128
-  ) {
+
+  // confirm length input's value is a number
+  // set it to default if not
+  if (typeof length != 'number')
     length = lengthInput.value = 16;
-  }
+  
+  // we have a number, make sure its contained, this forces the
+  // number to the closest possible value if it is out of bounds
+  else 
+    length = lengthInput.value = _containNum( length, 8, 128 );
 
   // loop through our length and make our password step by step
   for (var x=0; x < length; x++)
@@ -74,6 +76,12 @@ function generatePassword()
 function _randomInt(num)
 {
   return Math.floor( Math.random() * num );
+}
+
+// forces an number to be contained in a range
+function _containNum(num, min, max)
+{
+  return Math.max( Math.min(num, max), min );
 }
 
 // Add event listener to generate button
